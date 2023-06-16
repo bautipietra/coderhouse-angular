@@ -1,0 +1,33 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5rem;
+  background-color: #1e1e1e;
+  color: #fff;
+  height: var(--nav-height);
+}
+
+nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 1rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: 0.2s;
+}
+
+nav ul li a:hover {
+  color: #aaa;
+}
+
+nav span {
+  font-size: 2rem;
+  font-weight: 700;
+}

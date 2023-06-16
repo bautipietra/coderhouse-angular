@@ -1,0 +1,20 @@
+aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #e4e4e4;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+aside ul {
+  display: grid;
+  gap: 1rem;;
+}
+
+aside ul li a {
+  color: black;
+}
