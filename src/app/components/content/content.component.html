@@ -4,20 +4,31 @@
     alt="angular"
   />
   <h1>Alumnos</h1>
-  <div>
-    <input
-      (keyup)="onInputChange($event)"
-      type="text"
-      placeholder="Ingrese un alumno..."
-    />
-    <button (click)="onSave()">Agregar</button>
-  </div>
+  <form [formGroup]="alumnoModel" (ngSubmit)="onSave()">
+    <div>
+      <input
+        type="text"
+        formControlName="alumno"
+        placeholder="Ingrese un alumno..."
+      />
+      <div
+        *ngIf="
+          alumnoModel?.get('alumno')?.touched &&
+          alumnoModel?.get('alumno')?.invalid
+        "
+        class="error-message"
+      >
+        {{ getControlErrorMessage("alumno") }}
+      </div>
+    </div>
+    <input type="submit" value="Agregar" />
+  </form>
   <ul>
     <li
       *ngFor="let alumno of alumnos"
       [ngClass]="alumno.match('[0-9]+') ? 'error' : 'success'"
     >
-      {{ alumno }}
+      {{ alumno | titlecase }}
     </li>
   </ul>
 </div>

@@ -27,3 +27,15 @@ input, button {
   border: 1px solid black;
   background-color: #eee;
 }
+
+.error-message {
+  color: red;
+}
+
+form div {
+  display: flex;
+  justify-content: baseline;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+}

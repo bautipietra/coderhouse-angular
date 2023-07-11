@@ -8,6 +8,7 @@ import { AsideComponent } from './components/aside/aside.component';
 import { ContentComponent } from './components/content/content.component';
 import { MainWrapperComponent } from './components/main-wrapper/main-wrapper.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
