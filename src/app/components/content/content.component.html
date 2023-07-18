@@ -3,32 +3,111 @@
     src="https://cdn.filestackcontent.com/7YpUgdfPQ62d1BsGCOYz"
     alt="angular"
   />
-  <h1>Alumnos</h1>
+  <h1 appFontSize="20">Agregar alumno</h1>
   <form [formGroup]="alumnoModel" (ngSubmit)="onSave()">
-    <div>
-      <input
-        type="text"
-        formControlName="alumno"
-        placeholder="Ingrese un alumno..."
-      />
-      <div
-        *ngIf="
-          alumnoModel?.get('alumno')?.touched &&
-          alumnoModel?.get('alumno')?.invalid
-        "
-        class="error-message"
-      >
-        {{ getControlErrorMessage("alumno") }}
-      </div>
-    </div>
-    <input type="submit" value="Agregar" />
-  </form>
-  <ul>
-    <li
-      *ngFor="let alumno of alumnos"
-      [ngClass]="alumno.match('[0-9]+') ? 'error' : 'success'"
+    <label for="name">Nombre</label>
+    <input
+      type="text"
+      id="name"
+      formControlName="name"
+      placeholder="Ingrese el nombre..."
+    />
+    <div
+      *ngIf="
+        alumnoModel.get('name')?.touched && alumnoModel.get('name')?.invalid
+      "
+      class="error-message"
     >
-      {{ alumno | titlecase }}
-    </li>
-  </ul>
+      {{ getControlErrorMessage("name") }}
+    </div>
+
+    <label for="surname">Apellido</label>
+    <input
+      type="text"
+      id="surname"
+      formControlName="surname"
+      placeholder="Ingrese el apellido..."
+    />
+    <div
+      *ngIf="
+        alumnoModel.get('surname')?.touched &&
+        alumnoModel.get('surname')?.invalid
+      "
+      class="error-message"
+    >
+      {{ getControlErrorMessage("surname") }}
+    </div>
+
+    <label for="age">Edad</label>
+    <input
+      type="number"
+      id="age"
+      formControlName="age"
+      placeholder="Ingrese la edad..."
+    />
+    <div
+      *ngIf="alumnoModel.get('age')?.touched && alumnoModel.get('age')?.invalid"
+      class="error-message"
+    >
+      {{ getControlErrorMessage("age") }}
+    </div>
+
+    <label for="mail">Correo Electrónico</label>
+    <input
+      type="email"
+      id="mail"
+      formControlName="mail"
+      placeholder="Ingrese el correo electrónico..."
+    />
+    <div
+      *ngIf="
+        alumnoModel.get('mail')?.touched && alumnoModel.get('mail')?.invalid
+      "
+      class="error-message"
+    >
+      {{ getControlErrorMessage("mail") }}
+    </div>
+
+    <input type="submit" value="Agregar" [disabled]="alumnoModel.invalid" />
+  </form>
+
+  <h1 appFontSize="20">Alumnos</h1>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Define las columnas de la tabla -->
+    <ng-container
+      [matColumnDef]="column"
+      *ngFor="let column of displayedColumns"
+    >
+      <th mat-header-cell *matHeaderCellDef>
+        {{ column === "fullName" ? "Nombre completo" : (column | uppercase) }}
+      </th>
+      <td mat-cell *matCellDef="let student">
+        <ng-container *ngIf="column !== 'actions'">
+          <ng-container *ngIf="column === 'fullName'; else otherColumns">
+            {{ student | fullName : "uppercase" }}
+          </ng-container>
+          <ng-template #otherColumns>
+            {{ student[column] }}
+          </ng-template>
+        </ng-container>
+        <ng-container *ngIf="column === 'actions'">
+          <button
+            (click)="openEditDialog(student)"
+            mat-icon-button
+            color="primary"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="deleteStudent(student)" mat-icon-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Define las filas de la tabla -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 </div>

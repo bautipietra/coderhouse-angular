@@ -11,14 +11,6 @@ div img {
   border-radius: 1rem;
 }
 
-.error {
-  background-color: red;
-}
-
-.success {
-  background-color: green;
-}
-
 input, button {
   padding: 10px;
   border-radius: 5px;
@@ -32,10 +24,24 @@ input, button {
   color: red;
 }
 
+form {
+  display: grid;
+  gap: 10px;
+  margin: auto;
+}
+
+form input, form button {
+  max-width: 300px;
+}
+
 form div {
   display: flex;
   justify-content: baseline;
   align-items: baseline;
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  text-align: center;
 }

@@ -9,6 +9,13 @@ import { ContentComponent } from './components/content/content.component';
 import { MainWrapperComponent } from './components/main-wrapper/main-wrapper.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontSizeDirective } from './shared/directives/fontSize.directive';
+import { FullNamePipe } from './shared/pipes/full-name.pipe';
+
+// Importar módulos de Angular Material
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -17,12 +24,17 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     AsideComponent,
     ContentComponent,
     MainWrapperComponent,
-    FooterComponent
+    FooterComponent,
+    FontSizeDirective,
+    FullNamePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
