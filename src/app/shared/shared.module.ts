@@ -9,13 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { FullNamePipe } from './pipes/full-name.pipe';
-import { ControlErrorMessagePipe } from './pipes/control-error-message.pipe';
 import { FontSizeDirective } from './directives/fontSize.directive';
 
 @NgModule({
   declarations: [
     FullNamePipe,
-    ControlErrorMessagePipe,
     FontSizeDirective
   ],
   imports: [
@@ -31,7 +29,6 @@ import { FontSizeDirective } from './directives/fontSize.directive';
     ReactiveFormsModule,
     MatTableModule,
     FullNamePipe,
-    ControlErrorMessagePipe,
     FontSizeDirective
   ]
 })

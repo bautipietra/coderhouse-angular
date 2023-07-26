@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Student } from '../../models/student.model';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable, Subject, of } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { DatosService } from '../../datos.service';
 
 
 @Component({
@@ -9,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css'],
 })
-export class ContentComponent {
+export class ContentComponent implements OnDestroy {
   alumnoModel: FormGroup;
   alumnos: Student[] = [];
   dataSource: MatTableDataSource<Student>;
@@ -17,7 +20,14 @@ export class ContentComponent {
   // Arreglo de nombres de columnas para la tabla
   displayedColumns: string[] = ['fullName', 'age', 'mail', 'actions'];
 
-  constructor() {
+
+  // Api
+  apiDataSource: MatTableDataSource<any>;
+  apiDisplayedColumns: string[] = ['name', 'email'];
+  dataObservable$: Observable<any[]> = of([]);
+  private unsubscribe$ = new Subject<void>();
+
+  constructor(private datosService: DatosService) {
     this.alumnoModel = new FormGroup({
       name: new FormControl('', [
         Validators.required,
@@ -38,6 +48,22 @@ export class ContentComponent {
     });
 
     this.dataSource = new MatTableDataSource(this.alumnos);
+
+    // Api
+    this.apiDataSource = new MatTableDataSource<any>();
+  }
+
+  ngOnInit() {
+    // Consumir el servicio y mostrar los datos en la tabla
+    this.datosService.getDataPromise()
+      .then(data => {
+        if (data !== undefined) {
+          this.apiDataSource.data = data;
+        }
+      })
+      .catch(error => {
+        console.error('Error al obtener los datos de la API:', error);
+      });
   }
 
   onSave(): void {
@@ -103,5 +129,10 @@ openEditDialog(student: Student): void {
       this.alumnos.splice(index, 1);
       this.dataSource.data = this.alumnos;
     }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

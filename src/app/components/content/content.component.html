@@ -3,6 +3,21 @@
     src="https://cdn.filestackcontent.com/7YpUgdfPQ62d1BsGCOYz"
     alt="angular"
   />
+  <h1 appFontSize="20">Alumnos traídos por api:</h1>
+  <table mat-table [dataSource]="apiDataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nombre Completo</th>
+      <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Mail</th>
+      <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="apiDisplayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: apiDisplayedColumns"></tr>
+  </table>
   <h1 appFontSize="20">Agregar alumno</h1>
   <form [formGroup]="alumnoModel" (ngSubmit)="onSave()">
     <label for="name">Nombre</label>
